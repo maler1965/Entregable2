@@ -16,6 +16,7 @@ import image9 from "/images/weather/bg9.jpg";
 import image10 from "/images/weather/bg10.webp";
 import image11 from "/images/weather/bg11.jpg";
 import image12 from "/images/weather/bg12.jpg";
+import Loader from './componets/Loader';
 
 
 function App() {
@@ -63,7 +64,8 @@ function App() {
       backgroundPosition: 'center',
     }} >
 
-      <Weather weatherInfo={weatherInfo} />
+      {weatherInfo ? <Weather weatherInfo={weatherInfo} /> : <Loader />}
+
 
 
     </main>

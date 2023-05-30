@@ -91,7 +91,7 @@ const Weather = ({ weatherInfo }) => {
 
             <div className=" flex gap-2"  >
                 <form onSubmit={handleSubmit} className="max-w-max mx-auto">
-                    <div className="flex rounded-md overflow-hidden p-2">
+                    <div className="flex rounded-md overflow-hidden ">
                         <input
                             id="name"
                             type="text"
