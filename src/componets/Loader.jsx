@@ -4,7 +4,6 @@ import "./styles/Loader.css"
 
 const Loader = () => {
 
-
     return (
 
         <div className="bg-white absolute h-full w-full flex justify-center items-center">

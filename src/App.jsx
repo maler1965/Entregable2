@@ -28,19 +28,6 @@ function App() {
   const [randomImage, setRandomImage] = useState(null)
 
 
-  useEffect(() => {
-    // Obtener una imagen aleatoria del arreglo de imágenes
-    if (weatherInfo?.dt >= weatherInfo?.sys.sunrise && weatherInfo?.dt <= weatherInfo?.sys.sunset) {
-      const randomImageIndex = Math.floor(Math.random() * images1.length);
-      const randomImg = images1[randomImageIndex];
-      setRandomImage(randomImg);
-    }
-    const randomImageIndex = Math.floor(Math.random() * images2.length);
-    const randomImg = images2[randomImageIndex];
-    setRandomImage(randomImg);
-  }, [])
-
-
 
   const success = (pos) => {
     const lat = pos.coords.latitude
@@ -56,6 +43,29 @@ function App() {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(success)
   }, [])
+
+
+  useEffect(() => {
+    if (weatherInfo?.dt >= weatherInfo?.sys.sunrise && weatherInfo?.dt <= weatherInfo?.sys.sunset) {
+      const randomImageIndex = Math.floor(Math.random() * images1.length);
+      const randomImg = images1[randomImageIndex];
+      setRandomImage(randomImg);
+      console.log(true)
+
+    }
+    else {
+      const randomImageIndex = Math.floor(Math.random() * images2.length);
+      const randomImg = images2[randomImageIndex];
+      setRandomImage(randomImg);
+      console.log(false)
+    }
+    console.log(null)
+  }, [])
+
+
+  /*<Weather weatherInfo={weatherInfo} />
+   
+   */
 
   return (
     <main className="bg-black min-h-screen text-white flex justify-center items-center font-principal-font p-2  background-size: cover  background-position: center" style={{
