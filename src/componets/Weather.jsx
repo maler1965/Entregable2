@@ -1,39 +1,60 @@
 import { useState } from "react"
-//import { temp } from '../utils/temp.js';
-//import { temp } from '../utils/KelvinToCelsius';
-//import { temp2 } from '../utils/KelvinToFahrenheit';
-//import temp from '../utils/temp'
+import axios from 'axios'
+
 
 
 
 const Weather = ({ weatherInfo }) => {
 
-    console.log(weatherInfo)
-    const [isCelsius, setisCelsius] = useState(true)
+    var weatherInfo2 = ' '
 
-    const handleChangeTemp = () => {
-        setisCelsius(!isCelsius)
+    const [control, setControl] = useState(true)
+
+    const [isCelsius, setIsCelsius] = useState(true)
+    const [city, setCity] = useState(null)
+
+    if (control) {
+        weatherInfo2 = weatherInfo
+    } else {
+        weatherInfo2 = city
     }
 
-    //style={{ backgroundImage: `url(${fondoImagen})` }}
-    //{weatherImages[weatherInfo?.weather[0].icon]}
-    //{`https://openweathermap.org/img/wn/${weatherInfo?.weather[0].icon}@4x.png`
-    //{isCelsius ? KelvinToCelsius(weatherInfo?.main.temp) : KelvinToFahrenheit(weatherInfo?.main.temp)}
+    const handleChangeTemp = () => {
+        setIsCelsius(!isCelsius)
+    }
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const name = e.target.name.value;
+
+        if (name === "") return setCity(null)
+        const API_KEY = "ad6474321134f3593207f792067c1a1e"
+
+        setControl(!control)
+
+        axios
+            .get(`https://api.openweathermap.org/data/2.5/weather?q= ${name}&appid=${API_KEY}`)
+            .then((res) => setCity(res.data))
+            .catch((err) => console.log(err));
+    };
+
+
     return (
         <section className='text-center grid gap-6' >
-            <h2 className='font-bold  text-2xl'>{weatherInfo?.name}, {weatherInfo?.sys.country}</h2>
+            <h2 className='font-bold  text-2xl'>{weatherInfo2?.name}, {weatherInfo2?.sys.country}</h2>
 
             <section className='grid gap-4 sm:grid-cols-[1fr_auto]' style={{ color: 'green' }}>
 
                 {/*seccion arriba */}
                 <article className='bg-white/70 p-2 rounded-3xl grid grid-cols-2 items-center '>
 
-                    <h3 className='col-span-2 capitalize'>{weatherInfo?.weather[0].description}</h3>
+                    <h3 className='col-span-2 capitalize'>{weatherInfo2?.weather[0].description}</h3>
 
-                    <span className='text-4xl'>{isCelsius ? `${((weatherInfo?.main.temp) - 273.15).toFixed(1)} °C` : `${(((weatherInfo?.main.temp) - 273.15) * (9 / 5) + 32).toFixed(1)} °F`}</span>
+                    <span className='text-4xl'>{isCelsius ? `${((weatherInfo2?.main.temp) - 273.15).toFixed(1)} °C` : `${(((weatherInfo2?.main.temp) - 273.15) * (9 / 5) + 32).toFixed(1)} °F`}</span>
 
                     <div>
-                        <img src={`https://openweathermap.org/img/wn/${weatherInfo?.weather[0].icon}@4x.png`} alt="" />
+                        <img src={`https://openweathermap.org/img/wn/${weatherInfo2?.weather[0].icon}@4x.png`} alt="" />
                     </div>
 
                 </article>
@@ -45,7 +66,7 @@ const Weather = ({ weatherInfo }) => {
                         <div>
                             <img src="./images/wind.png" alt="" />
                         </div>
-                        <span>{weatherInfo?.wind.speed}  m/s</span>
+                        <span>{weatherInfo2?.wind.speed}  m/s</span>
                     </article>
 
 
@@ -53,7 +74,7 @@ const Weather = ({ weatherInfo }) => {
                         <div className="pr-5" >
                             <img src="./images/humidity.png" alt="" />
                         </div>
-                        <span>{weatherInfo?.main.humidity}  %</span>
+                        <span>{weatherInfo2?.main.humidity}  %</span>
                     </article>
 
 
@@ -61,16 +82,27 @@ const Weather = ({ weatherInfo }) => {
                         <div>
                             <img src="./images/pressure.png" alt="" />
                         </div>
-                        <span>{weatherInfo?.main.pressure}  hPa</span>
+                        <span>{weatherInfo2?.main.pressure}  hPa</span>
                     </article>
 
                 </section>
 
             </section>
 
-            <div style={{ display: 'inline-block' }} >
-                <button onClick={handleChangeTemp} className="bg-white/70 p-2  rounded-3xl" style={{ color: 'green' }}   >Change F/C</button>
+            <div className=" flex gap-2"  >
+                <form onSubmit={handleSubmit} className="max-w-max mx-auto">
+                    <div className="flex rounded-md overflow-hidden p-2">
+                        <input
+                            id="name"
+                            type="text"
+                            placeholder="Write your city..."
+                            className="text-black outline-none px-2"
+                        />
+                        <button className="bg-red-500 p-2"> Search by City</button>
+                    </div>
+                </form>
 
+                <button onClick={handleChangeTemp} className="bg-white/70 p-2  rounded-3xl" style={{ color: 'green' }} >Change F/C</button>
             </div>
 
         </section>
