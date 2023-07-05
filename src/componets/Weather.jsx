@@ -41,11 +41,12 @@ const Weather = ({ weatherInfo }) => {
 
         <main >
             <section className='text-center grid gap-6'  >
+
                 <h2 className='font-bold  text-2xl'>{weatherInfo2?.name}, {weatherInfo2?.sys.country}</h2>
+
 
                 <section className='grid gap-4 sm:grid-cols-[1fr_auto]' style={{ color: 'green' }}>
 
-                    {/*seccion arriba */}
                     <article className='bg-white/70 p-2 rounded-3xl grid grid-cols-2 items-center '>
 
                         <h3 className='col-span-2 capitalize'>{weatherInfo2?.weather[0].description}</h3>
@@ -58,7 +59,9 @@ const Weather = ({ weatherInfo }) => {
 
                     </article>
 
-                    {/*seccion abajo */}
+
+
+
                     <section className='bg-white/70 p-2 rounded-3xl grid grid-cols-3 justify-items-center sm:grid-cols-1 sm:items-center'>
 
                         <article className='flex gap-2 sm:items-center'>
@@ -88,21 +91,52 @@ const Weather = ({ weatherInfo }) => {
 
                 </section>
 
-                <div className=" flex gap-2"  >
-                    <form onSubmit={handleSubmit} className="max-w-max mx-auto">
-                        <div className="flex rounded-md overflow-hidden ">
-                            <input
-                                id="name"
-                                type="text"
-                                placeholder="Write your city..."
-                                className="text-black outline-none px-2"
-                            />
-                            <button className="bg-red-500 p-2"> Search by City</button>
-                        </div>
-                    </form>
 
-                    <button onClick={handleChangeTemp} className="bg-white/70 p-2  rounded-3xl" style={{ color: 'green' }} >Change F/C</button>
+
+                <div className='hidden md:block' >
+
+                    <div className=" flex gap-2"  >
+
+                        <form onSubmit={handleSubmit} className="max-w-max mx-auto">
+                            <div className="flex rounded-md overflow-hidden ">
+                                <input
+                                    id="name"
+                                    type="text"
+                                    placeholder="Write your city..."
+                                    className="text-black outline-none p-2"
+                                />
+                                <button className="bg-red-500 p-2"> Search by City</button>
+                            </div>
+                        </form>
+
+                        <button onClick={handleChangeTemp} className="bg-white/70 p-2  rounded-3xl" style={{ color: 'green' }} >Change F/C</button>
+                    </div>
+
                 </div>
+
+
+
+                <div className='block md:hidden' >
+                    <div   >
+
+                        <form onSubmit={handleSubmit} className="max-w-max mx-auto">
+                            <div className="p-2 rounded-md overflow-hidden ">
+
+                                <button className="bg-red-500 rounded-md  mt-4 p-2"> Search by City</button>
+                                <input
+                                    id="name"
+                                    type="text"
+                                    placeholder="Write your city..."
+                                    className="text-black outline-none mt-4 rounded-md p-2"
+                                />
+
+                            </div>
+                        </form>
+
+                        <button onClick={handleChangeTemp} className="bg-white/70 p-2  rounded-3xl" style={{ color: 'green' }} >Change F/C</button>
+                    </div>
+                </div>
+
 
             </section>
         </main>

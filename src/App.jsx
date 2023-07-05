@@ -73,6 +73,8 @@ function App() {
     navigator.geolocation.getCurrentPosition(success)
   }, [])
 
+
+
   return (
     <main className="bg-black min-h-screen text-white flex justify-center items-center font-principal-font p-2  background-size: cover  background-position: center" style={{
       backgroundImage: `url(${randomImage})`,
